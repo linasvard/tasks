@@ -1,7 +1,12 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue';
+const text = ref('');
+</script>
 
 <template>
-  <main class="card">
-    <h1>Uppgifter</h1>
+  <main>
+    <h1>Tasks</h1>
+    <input v-model="text" placeholder="What to do?" />
+    <p>You want to: {{ text }}</p>
   </main>
 </template>
