@@ -1,6 +1,10 @@
 :root {
   --bg: #111012;
   --text: #dbd3e9;
+  --card: #1e1c2a;
+  --muted: #6e6a7c;
+  --accent: #9666df;
+  --border: #695e92;
 
   font-family:
     system-ui,
@@ -24,4 +28,37 @@ body {
   display: grid;
   place-items: start center;
   padding: 4rem 1rem;
+}
+
+h1 {
+  margin: 0 0 1.25rem;
+  color: var(--accent);
+}
+
+input:not([type='checkbox']) {
+  font: inherit;
+  padding: 0.6rem 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--card);
+  color: var(--text);
+}
+
+input[type='checkbox'] {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--accent);
+}
+button {
+  font: inherit;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
