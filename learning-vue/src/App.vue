@@ -1,13 +1,21 @@
 <script setup>
 import { ref } from 'vue';
-const text = ref('');
+import TodoItem from './components/TodoItem.vue';
+import TodoForm from './components/TodoForm.vue';
+
 const todos = ref([]);
 
-function addTodo() {
-  const trimmed = text.value.trim();
+function addTodo(text) {
+  const trimmed = text.trim();
   if (!trimmed) return;
   todos.value.push({ id: crypto.randomUUID(), text: trimmed, done: false });
-  text.value = '';
+}
+
+function toggleTodo(id) {
+  const todo = todos.value.find((todo) => todo.id === id);
+  if (todo) {
+    todo.done = !todo.done;
+  }
 }
 
 function removeTodo(id) {
@@ -18,24 +26,28 @@ function removeTodo(id) {
 <template>
   <main class="card">
     <h1>Tasks</h1>
-    <form @submit.prevent="addTodo">
-      <input v-model="text" placeholder="What to do?" />
-      <button :disabled="!text.trim()" type="submit">Add</button>
-    </form>
-    <ul v-if="todos.length">
-      <li v-for="todo in todos" :key="todo.id" :class="{ done: todo.done }">
-        <input type="checkbox" v-model="todo.done" />
-        {{ todo.text }}
-        <button @click="removeTodo(todo.id)">Remove</button>
-      </li>
+    <TodoForm @add="addTodo" />
+    <ul v-if="todos.length" class="list">
+      <TodoItem
+        v-for="todo in todos"
+        :key="todo.id"
+        :todo="todo"
+        @toggle="toggleTodo"
+        @remove="removeTodo" />
     </ul>
-    <p v-else>No tasks yet</p>
+    <p v-else class="empty">No tasks yet</p>
   </main>
 </template>
 
 <style scoped>
-.done {
-  text-decoration: line-through;
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+.empty {
   color: var(--muted);
+  text-align: center;
+  margin: 2rem 0 1rem;
 }
 </style>
