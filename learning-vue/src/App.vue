@@ -1,10 +1,26 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import TodoItem from './components/TodoItem.vue';
 import TodoForm from './components/TodoForm.vue';
 import TodoFilter from './components/TodoFilter.vue';
+const STORAGE_KEY = 'learning-vue-todos';
 
-const todos = ref([]);
+function load() {
+  try {
+    const data = localStorage.getItem(STORAGE_KEY);
+    return data ? JSON.parse(data) : [];
+  } catch {
+    return [];
+  }
+}
+
+const todos = ref(load());
+
+watch(
+  todos,
+  (value) => localStorage.setItem(STORAGE_KEY, JSON.stringify(value)),
+  { deep: true },
+);
 
 const filter = ref('all');
 
