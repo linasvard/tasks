@@ -19,7 +19,7 @@ const {
 
 <template>
   <main class="card">
-    <h1>Tasks</h1>
+    <h1>My tasks</h1>
     <TodoForm @add="addTodo" />
     <div v-if="todos.length" class="filtering">
       <span>{{ remaining }} tasks left</span>
@@ -38,7 +38,7 @@ const {
     </ul>
     <p v-else class="empty">No tasks yet</p>
   </main>
-  <footer>2026 &copy; All rights reserved</footer>
+  <footer class="site-footer">2026 &copy; All rights reserved</footer>
 </template>
 
 <style scoped>
@@ -71,5 +71,11 @@ const {
 }
 .link:hover {
   color: var(--danger);
+}
+.site-footer {
+  margin-top: auto;
+  padding-top: 2rem;
+  font-size: 0.85rem;
+  color: var(--muted);
 }
 </style>
