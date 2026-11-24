@@ -18,6 +18,11 @@ function toggleTodo(id) {
   }
 }
 
+function rename(id, text) {
+  const todo = todos.value.find((todo) => todo.id === id);
+  if (todo && text.trim()) todo.text = text.trim();
+}
+
 function removeTodo(id) {
   todos.value = todos.value.filter((todo) => todo.id !== id);
 }
@@ -33,7 +38,8 @@ function removeTodo(id) {
         :key="todo.id"
         :todo="todo"
         @toggle="toggleTodo"
-        @remove="removeTodo" />
+        @remove="removeTodo"
+        @rename="rename" />
     </ul>
     <p v-else class="empty">No tasks yet</p>
   </main>
