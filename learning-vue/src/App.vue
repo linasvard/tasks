@@ -1,9 +1,27 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import TodoItem from './components/TodoItem.vue';
 import TodoForm from './components/TodoForm.vue';
+import TodoFilter from './components/TodoFilter.vue';
 
 const todos = ref([]);
+
+const filter = ref('all');
+
+const filtered = computed(() => {
+  if (filter.value === 'active')
+    return todos.value.filter((todo) => !todo.done);
+  if (filter.value === 'done') return todos.value.filter((todo) => todo.done);
+  return todos.value;
+});
+
+const remaining = computed(
+  () => todos.value.filter((todo) => !todo.done).length,
+);
+
+function clearDone() {
+  todos.value = todos.value.filter((todo) => !todo.done);
+}
 
 function addTodo(text) {
   const trimmed = text.trim();
@@ -32,9 +50,15 @@ function removeTodo(id) {
   <main class="card">
     <h1>Tasks</h1>
     <TodoForm @add="addTodo" />
-    <ul v-if="todos.length" class="list">
+    <div v-if="todos.length" class="filtering">
+      <span>{{ remaining }} tasks left</span>
+      <TodoFilter v-model="filter" />
+      <button class="link" @click="clearDone">Clear done</button>
+    </div>
+
+    <ul v-if="filtered.length" class="list">
       <TodoItem
-        v-for="todo in todos"
+        v-for="todo in filtered"
         :key="todo.id"
         :todo="todo"
         @toggle="toggleTodo"
@@ -43,6 +67,7 @@ function removeTodo(id) {
     </ul>
     <p v-else class="empty">No tasks yet</p>
   </main>
+  <footer>2026 &copy; All rights reserved</footer>
 </template>
 
 <style scoped>
@@ -55,5 +80,25 @@ function removeTodo(id) {
   color: var(--muted);
   text-align: center;
   margin: 2rem 0 1rem;
+}
+
+.filtering {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.link {
+  background: none;
+  color: var(--muted);
+  padding: 0;
+}
+.link:hover {
+  color: var(--danger);
 }
 </style>
