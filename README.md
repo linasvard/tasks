@@ -6,7 +6,7 @@
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
-A small to-do app built with Vue 3 and Vite while learning Vue. Add, edit, check
+A small to-do app built with Vue 3 and Vite for the purpose of learning Vue. Add, edit, check
 off and filter tasks. Everything is saved in the browser, so your list is still
 there after a reload.
 
