@@ -38,7 +38,7 @@ const {
     </ul>
     <p v-else class="empty">No tasks yet</p>
   </main>
-  <footer class="site-footer">2026 &copy; All rights reserved</footer>
+  <footer class="site-footer">2026 &copy; Tasks</footer>
 </template>
 
 <style scoped>
