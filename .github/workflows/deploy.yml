@@ -27,6 +27,9 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: learning-vue
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -35,6 +38,7 @@ jobs:
         with:
           node-version: lts/*
           cache: 'npm'
+          cache-dependency-path: 'learning-vue/package-lock.json'
       - name: Install dependencies
         run: npm ci
       - name: Build
@@ -45,7 +49,7 @@ jobs:
         uses: actions/upload-pages-artifact@v4
         with:
           # Upload dist folder
-          path: './dist'
+          path: '.learning-vue/dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
